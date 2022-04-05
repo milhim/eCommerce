@@ -21,6 +21,24 @@ class UserController extends Controller
         return view('master');
     }
 
+    public function register(){
+        return view('auth.register');
+    }
+
+    public function registerProcess(Request $req){
+        $user=new User();
+
+        $user->name=$req->input('name');
+        $user->email=$req->input('email');
+        $user->password=Hash::make($req->input('password'));
+
+        $user->save();
+
+        return redirect(route('login'));
+
+
+    }
+
     public function login()
     {
         return view('auth.login');
